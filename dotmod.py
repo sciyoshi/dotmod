@@ -77,7 +77,11 @@ try:
 except NameError:
 	pass
 else:
-	sys.meta_path.remove(hook)
+	try:
+		sys.meta_path.remove(hook)
+	except ValueError:
+		# not found, skip removing
+		pass
 
 # automatically install hook
 hook = DotImportHook()
