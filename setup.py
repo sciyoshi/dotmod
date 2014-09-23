@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
 	name='dotmod',
-	version='0.0.1',
-	description='',
+	version='0.0.2',
+	description='Import Python packages from folders with dotted names',
 	url='https://github.com/sciyoshi/dotmod/',
 	author='Samuel Cormier-Iijima',
 	author_email='sciyoshi@gmail.com',
