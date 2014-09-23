@@ -1,6 +1,7 @@
 import os
 import imp
 import sys
+import six
 
 class DotImportHook:
 	def find_module(self, fullname, path=None):
@@ -44,9 +45,14 @@ class DotImportHook:
 			return module
 
 		for folder in sys.path:
-			if os.path.exists(os.path.join(folder, fullname)):
-				module.__path__ = [os.path.join(folder, fullname)]
-				module.__file__ = [os.path.join(folder, fullname, '__init__.pyc')]
+			pathfunc = lambda *args: os.path.join(folder, fullname, *args)
+
+			if os.path.exists(pathfunc()):
+				module.__path__ = [pathfunc()]
+				module.__file__ = pathfunc('__init__.pyc')
+
+				six.exec_(open(pathfunc('__init__.py')).read(), module.__dict__)
+
 				return module
 
 		for i in range(1, len(bits) - 1):
@@ -55,9 +61,14 @@ class DotImportHook:
 			path = sys.modules[package].__path__
 
 			for folder in path:
-				if os.path.exists(os.path.join(folder, mod)):
-					module.__path__ = [os.path.join(folder, mod)]
-					module.__file__ = [os.path.join(folder, mod, '__init__.pyc')]
+				pathfunc = lambda *args: os.path.join(folder, mod, *args)
+
+				if os.path.exists(pathfunc()):
+					module.__path__ = [pathfunc()]
+					module.__file__ = pathfunc('__init__.pyc')
+
+					six.exec_(open(pathfunc('__init__.py')).read(), module.__dict__)
+
 					return module
 
 		# somehow not found, delete from sys.modules

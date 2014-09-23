@@ -20,6 +20,9 @@ setup(
 		'Programming Language :: Python :: 3.4',
 	],
 	keywords='namespace modules dotmod imports hooks importhook packages',
+	install_requires=[
+		'six>=1.8.0'
+	],
 	py_modules=[
 		'dotmod'
 	])
