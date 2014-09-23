@@ -4,8 +4,6 @@ import sys
 
 class DotImportHook:
 	def find_module(self, fullname, path=None):
-		print('FINDING', fullname, 'in', path)
-
 		bits = fullname.split('.')
 
 		if len(bits) <= 1:
@@ -13,7 +11,6 @@ class DotImportHook:
 
 		for folder in sys.path:
 			if os.path.exists(os.path.join(folder, fullname)):
-				print('FOUND:', folder, fullname)
 				return self
 
 		for i in range(1, len(bits) - 1):
@@ -21,16 +18,11 @@ class DotImportHook:
 
 			path = sys.modules[package].__path__
 
-			print('mod is', path, package, mod)
-
 			for folder in path:
 				if os.path.exists(os.path.join(folder, mod)):
-					print('FOUND:', folder, mod)
 					return self
 
 	def load_module(self, fullname):
-		print('LOADING', fullname)
-
 		if fullname in sys.modules:
 			return sys.modules[fullname]
 
