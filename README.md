@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/sciyoshi/dotmod.svg?branch=master)](https://travis-ci.org/sciyoshi/dotmod)
 
-This project adds support for dotted folder names to Python's import system.
+This project adds support for dotted folder names to Python's import system!
 
 ## Installation
 
